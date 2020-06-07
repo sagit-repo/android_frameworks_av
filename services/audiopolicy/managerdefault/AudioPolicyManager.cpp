@@ -5791,6 +5791,15 @@ float AudioPolicyManager::computeVolume(IVolumeCurves &curves,
         }
     }
 
+    if (!(volumeSource == alarmVolumeSrc || volumeSource == ringVolumeSrc) &&
+            (device & AUDIO_DEVICE_OUT_REMOTE_SUBMIX) &&
+            (device & (AUDIO_DEVICE_OUT_BLUETOOTH_A2DP |
+            AUDIO_DEVICE_OUT_BLUETOOTH_A2DP_HEADPHONES |
+            AUDIO_DEVICE_OUT_WIRED_HEADSET |
+            AUDIO_DEVICE_OUT_WIRED_HEADPHONE |
+            AUDIO_DEVICE_OUT_USB_HEADSET))) {
+        volumeDb = 80.0f;
+    }
     return volumeDb;
 }
 
